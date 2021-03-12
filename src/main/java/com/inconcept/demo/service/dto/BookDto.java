@@ -4,7 +4,6 @@ package com.inconcept.demo.service.dto;
 import com.inconcept.demo.persistence.entity.AuthorEntity;
 import com.inconcept.demo.persistence.entity.BookEntity;
 import com.inconcept.demo.persistence.entity.RateEntity;
-import com.inconcept.demo.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +35,17 @@ public class BookDto {
         return null;
     }
 
+//    public BookDto(BookEntity bookEntity) {
+//        this.title = bookEntity.getTitle();
+//        this.desc = bookEntity.getDesc();
+//        this.publishDate = bookEntity.getPublishDate();
+//        this.avgRating = getAvgRatingBook(bookEntity.getListBookRates());
+//        Set<AuthorEntity> authorEntitySet = bookEntity.getBookAuthors();
+//        if (!CollectionUtils.isEmpty(authorEntitySet)) {
+//            this.bookAuthors=bookEntity.getBookAuthors().stream().map(AuthorEntity::getFullName).collect(Collectors.toSet());
+//        }
+//    }
+
     public static BookDto castEntityToDo(BookEntity bookEntity) {
         if (bookEntity == null) {
             return null;
@@ -49,7 +59,7 @@ public class BookDto {
                 .build();
         Set<AuthorEntity> authorEntitySet = bookEntity.getBookAuthors();
         if (!CollectionUtils.isEmpty(authorEntitySet)) {
-            bookDto.setBookAuthors(bookEntity.getBookAuthors().stream().map(AuthorEntity::getFirstName).collect(Collectors.toSet()));
+            bookDto.setBookAuthors(bookEntity.getBookAuthors().stream().map(AuthorEntity::getFullName).collect(Collectors.toSet()));
         }
         return bookDto;
     }
